@@ -168,6 +168,12 @@ def parse_stats(stats_dir, stat_files):
 #     p = numpy.poly1d(z)
 #     ax.plot(x,p(x), "r--")
 
+def _conf_axes(axes, title, rotate):
+    axes.set_title(title)
+    axes.grid(True)
+    if rotate:
+        plt.setp(axes.get_xticklabels(), rotation=40, ha="right", rotation_mode="anchor")
+
 def plot_tracking(challenge_name, fig_id, stats, img_dir):
     width, height = 1, 2
 
@@ -175,17 +181,14 @@ def plot_tracking(challenge_name, fig_id, stats, img_dir):
     fig.suptitle(challenge_name)
 
     ax = plt.subplot(height, width, 1)
-    ax.set_title("Score")
-    ax.grid(True)
+    _conf_axes(ax, "Score", False)
     x, y = zip(*enumerate(s.summary.score for s in stats))
     ax.plot(x, y, ".")
     # _trendline(ax, x, y)
 
     ax = plt.subplot(height, width, 2)
-    ax.set_title("Avg Score Per Day")
-    ax.grid(True)
+    _conf_axes(ax, "Avg Score Per Day", True)
     ax.scatter(*daily_stats(stats, lambda s: s.summary.score))
-    ax.tick_params(axis="x", rotation=45)
 
     # ax.set_title("Avg Score Per Day")
     # days, values = daily_stats2(stats, lambda s: s.summary.score)
@@ -201,49 +204,43 @@ def plot_tracking(challenge_name, fig_id, stats, img_dir):
 def plot_click_timing(challenge_name, fig_id, stats, img_dir):
     width, height = 2, 4
 
-    def _conf(ax, title, rotate):
-        ax.set_title(title)
-        ax.grid(True)
-        if rotate:
-            ax.tick_params(axis="x", rotation=40)
-
     fig = plt.figure(fig_id, figsize=(20, 12))
     fig.suptitle(challenge_name)
 
     ax = plt.subplot(height, width, 1)
-    _conf(ax, "Score", False)
+    _conf_axes(ax, "Score", False)
     x, y = zip(*enumerate(s.summary.score for s in stats))
     ax.plot(x, y, ".")
     # _trendline(ax, x, y)
 
     ax = plt.subplot(height, width, 3)
-    _conf(ax, "Avg Score Per Day", True)
+    _conf_axes(ax, "Avg Score Per Day", True)
     days, values = daily_stats(stats, lambda s: s.summary.score)
     ax.scatter(days, values)
     # _trendline(ax, range(len(days)), values)
 
     ax = plt.subplot(height, width, 2)
-    _conf(ax, "Kills", False)
+    _conf_axes(ax, "Kills", False)
     ax.plot([s.summary.kills for s in stats], ".")
 
     ax = plt.subplot(height, width, 4)
-    _conf(ax, "Avg Kills Per Day", True)
+    _conf_axes(ax, "Avg Kills Per Day", True)
     ax.scatter(*daily_stats(stats, lambda s: s.summary.kills))
 
     ax = plt.subplot(height, width, 6)
-    _conf(ax, "Accuracy", False)
+    _conf_axes(ax, "Accuracy", False)
     ax.plot([s.accuracy for s in stats], ".")
 
     ax = plt.subplot(height, width, 8)
-    _conf(ax, "Avg Accuracy Per Day", True)
+    _conf_axes(ax, "Avg Accuracy Per Day", True)
     ax.scatter(*daily_stats(stats, lambda s: s.accuracy))
 
     ax = plt.subplot(height, width, 5)
-    _conf(ax, "TTK", False)
+    _conf_axes(ax, "TTK", False)
     ax.plot([s.ttk for s in stats], ".")
 
     ax = plt.subplot(height, width, 7)
-    _conf(ax, "Avg TTK Per Day", True)
+    _conf_axes(ax, "Avg TTK Per Day", True)
     ax.scatter(*daily_stats(stats, lambda s: s.ttk))
 
     plt.subplots_adjust(top=0.95, bottom=0.08, left=0.05, right=0.95, hspace=0.5, wspace=0.2)
