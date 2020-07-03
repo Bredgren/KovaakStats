@@ -84,6 +84,8 @@ class SessionStat(object):
 
         summary_info = {row[0].strip(":"): row[1] for row in csv.reader(summary_csv.splitlines())}
 
+        score_offset = -99000 if "Ground Plaza NO UFO" in m.group("name") else 0
+
         summary = SessionStat.Summary(
             int(summary_info["Kills"]),
             int(summary_info["Deaths"]),
@@ -91,7 +93,7 @@ class SessionStat(object):
             float(summary_info["Avg TTK"]),
             float(summary_info["Damage Done"]),
             float(summary_info["Damage Taken"]),
-            float(summary_info["Score"]),
+            float(summary_info["Score"]) + score_offset,
             tuple(map(int, summary_info["Game Version"].split("."))))
 
         timestamp_format = "%H:%M:%S:%f" if summary.game_version < (2, 0, 1, 0) else "%H:%M:%S.%f"
