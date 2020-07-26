@@ -93,7 +93,7 @@ def main():
         best = max(s.summary.score for s in stats)
         personal_best.append(best)
 
-        recent = sorted(stats, key=lambda s: s.date)[:5]
+        recent = sorted(stats, key=lambda s: s.date, reverse=True)[:5]
         scores = [s.summary.score for s in recent]
         pad = 5 - len(scores)
         scores += [0] * pad
