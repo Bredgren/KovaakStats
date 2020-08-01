@@ -104,10 +104,8 @@ def main():
     print()
 
     print("5 Most Recent:")
-    for run in range(5):
-        print("Run", run + 1)
-        print("\n".join("%.1f" % m[run] for m in most_recent))
-        print()
+    for recents in most_recent:
+        print(("{:<10.1f}" * 5).format(*recents))
 
 if __name__ == "__main__":
     main()
