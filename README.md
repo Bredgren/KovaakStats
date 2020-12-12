@@ -29,6 +29,20 @@ optional arguments:
                        (currently: D:\Pictures\Kovaak)
 ```
 
+## Setting the environment variables
+Here's a quick summary of the process on Windows. More details and instructions for other operating
+systems should be easy enough to find with a Google search.
+
+1. From the Windows Start menu do a search for "environment" (just open the start menu and start typing)
+and click the button for "Edit the system environment variables". This will open the System Properties pannel.
+2. From the Advanced tab click the Environment Variables button in the bottom right to open the
+Environment Variables window.
+3. Click the upper "New..." button to add a new user variable.
+4. Set the name to `KOVAAK_STAT_DIR` or `KOVAAK_STAT_IMG_DIR` and set the value to the desired file path.
+5. After adding the variables click OK on all the windows to close them.
+
+![env](https://github.com/Bredgren/KovaakStats/blob/master/examples/environment_variables.png)
+
 # Example output
 ![ex1](https://github.com/Bredgren/KovaakStats/blob/master/examples/1wall6targets%20TE.png)
 ![ex2](https://github.com/Bredgren/KovaakStats/blob/master/examples/Vertical%20Long%20Strafes.png)
