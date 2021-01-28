@@ -203,6 +203,8 @@ def plot_tracking(challenge_name, fig_id, stats, img_dir):
     canvas.print_figure(path.join(img_dir, challenge_name))
     print("Saved", path.join(img_dir, challenge_name) + ".png")
 
+    plt.close(fig)
+
 def plot_click_timing(challenge_name, fig_id, stats, img_dir):
     width, height = 2, 4
 
@@ -251,6 +253,8 @@ def plot_click_timing(challenge_name, fig_id, stats, img_dir):
     canvas = FigureCanvasAgg(fig)
     canvas.print_figure(path.join(img_dir, challenge_name))
     print("Saved", path.join(img_dir, challenge_name) + ".png")
+
+    plt.close(fig)
 
 def main():
     parser = argparse.ArgumentParser(description="Generate graphs from Kovaak data.")
